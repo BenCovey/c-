@@ -13,9 +13,9 @@ public:
 	string Name = "student";
 	int numCourse = 0;
 	string *Courses = new string;
-	student Student() {};//Default Constructor
-	
-
+	//student(string newName);
+	//student(const student& rightStudent); //default Constructor
+	//student &operator=(const student& rightside);//overloaded assignment operator
 
 	void addCourse(string Course) {
 		//initialize array
@@ -24,7 +24,7 @@ public:
 		for (int i = 0; i < this->numCourse; i++) {
 			tempArray[i] = this->Courses[i];
 		}
-
+		delete[] Courses;
 		//Overwrite Course Array to equal the full temp array
 
 		this->numCourse++;
@@ -32,7 +32,7 @@ public:
 
 		for (int i = 0; i < this->numCourse; i++) {
 			if (i == this->numCourse - 1) {
-				this->Courses[i] =  Course;
+				this->Courses[i] = Course;
 			}
 			else {
 				this->Courses[i] = tempArray[i];
@@ -41,28 +41,43 @@ public:
 
 		//delete temp array
 		delete[] tempArray;
-		
 	}
 
+	void deleteCourse() {
+		cout << "----------------" << endl;
+		cout << "Destructor Fired." << endl;
+		cout << "----------------" << endl;
+		delete[] Courses;
+		Courses = new string[numCourse];
+	}
 
 	void setName(string name) {
 		this->Name = name;
-		cout << "setName fired" << endl;
 	}
 
 	string getName() {
 		return this->Name;
-		cout << "getName fired" << endl;
 	}
 
 	int getNumCourses() {
 		return this->numCourse;	
-		cout << "getNumCourses fired" << endl;
 	}
 
 	void setNumCourses(int num) {
 		this->numCourse = num;
-		cout << "setNumCourses fired" << endl;
+	}
+	
+	//Destructor Constructor
+	student::~student() {
+		cout << "----------------" << endl;
+		cout << "Destructor Fired." << endl;
+		cout << "----------------" << endl;
+		try {
+			delete[] Courses;
+		}
+		catch (exception& e) {
+
+		}
 	}
 };
 
